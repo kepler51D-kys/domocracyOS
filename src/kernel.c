@@ -1,7 +1,3 @@
-struct multiboot_header {
-
-} __attribute__((section(".multiboot")));
-
 int main() {
     char* video_memory = (char*)0xB8000;
 

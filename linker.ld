@@ -1,13 +1,10 @@
-ENTRY(main)
+ENTRY(start)
 
 SECTIONS {
     . = 1M;
 
-    .text: {
-        /* link the multiboot struct here */
-        . = ALIGN(8);
-        KEEP(*(.multiboot))
-        /* place all of your code afterwards */
+    .text BLOCK(4K) : ALIGN(4K)
+    {
         *(.text)
     }
 

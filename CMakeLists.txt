@@ -25,6 +25,7 @@ set(LINKER_FLAGS
 
 set(SOURCES
     src/kernel.c
+    src/kernel.asm
     libs/segTable.c
 )
 
@@ -40,6 +41,7 @@ target_link_options(kernel PRIVATE ${LINKER_FLAGS})
 add_custom_command(
     OUTPUT ${CMAKE_BINARY_DIR}/iso-stamp
     COMMAND ${MKDIR} -p iso/boot/grub
+    # COMMAND nasm -f elf64 -l call.lst kernel.asm
     COMMAND ${CP} ${CMAKE_BINARY_DIR}/kernel iso/boot/kernel.bin
     COMMAND ${CP} ${CMAKE_SOURCE_DIR}/grub.cfg iso/boot/grub/
     COMMAND ${CMAKE_COMMAND} -E touch ${CMAKE_BINARY_DIR}/iso-stamp

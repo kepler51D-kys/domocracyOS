@@ -4,8 +4,11 @@ SECTIONS
 {
     . = 1M;
 
-    .text BLOCK(4K) : ALIGN(4K)
-    {
+    .text: {
+        /* link the multiboot struct here */
+        . = ALIGN(8);
+        KEEP(*(.multiboot))
+        /* place all of your code afterwards */
         *(.text)
     }
 
