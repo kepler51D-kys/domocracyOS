@@ -8,5 +8,5 @@ int main() {
         video_memory[i * 2 + 1] = 0x07;
     }
     
-    // Your kernel code here
+    while(1);
 }
