@@ -1,18 +1,22 @@
 cmake_minimum_required(VERSION 3.12)
+
+set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
+set(CMAKE_C_COMPILER /home/pilkey/opt/cross/bin/i686-elf-gcc)
+
 project(DomocracyOS VERSION 1.0 LANGUAGES C)
 
-enable_language(ASM_NASM)
-
+find_program(NASM_EXECUTABLE nasm REQUIRED)
+set(CMAKE_ASM_NASM_COMPILER ${NASM_EXECUTABLE})
 find_program(GRUB_MKRESCUE grub-mkrescue REQUIRED)
 find_program(MKDIR mkdir REQUIRED)
 find_program(CP cp REQUIRED)
 
 set(C_FLAGS
+    -m32
     -ffreestanding
     -fno-stack-protector
     -fno-pic
     -mno-red-zone
-    -mcmodel=kernel
     -O2
     -Wall
     -Wextra
@@ -21,17 +25,16 @@ set(C_FLAGS
 set(LINKER_FLAGS
     -nostdlib
     -static
-    -lgcc
     -T ${CMAKE_SOURCE_DIR}/linker.ld
 )
 
 set(ASM_NASM_FLAGS
-    -f elf64
+    -f elf32
 )
 
 set(SOURCES
-    src/kernel.asm  
     src/kernel.c
+    src/kernel.asm
     libs/segTable.c
 )
 
@@ -49,7 +52,6 @@ target_link_options(kernel PRIVATE ${LINKER_FLAGS})
 add_custom_command(
     OUTPUT ${CMAKE_BINARY_DIR}/iso-stamp
     COMMAND ${MKDIR} -p iso/boot/grub
-    # COMMAND nasm -f elf64 -l call.lst kernel.asm
     COMMAND ${CP} ${CMAKE_BINARY_DIR}/kernel iso/boot/kernel.bin
     COMMAND ${CP} ${CMAKE_SOURCE_DIR}/grub.cfg iso/boot/grub/
     COMMAND ${CMAKE_COMMAND} -E touch ${CMAKE_BINARY_DIR}/iso-stamp
