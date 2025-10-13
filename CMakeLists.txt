@@ -1,11 +1,13 @@
 cmake_minimum_required(VERSION 3.12)
 project(DomocracyOS VERSION 1.0 LANGUAGES C)
 
+enable_language(ASM_NASM)
+
 find_program(GRUB_MKRESCUE grub-mkrescue REQUIRED)
 find_program(MKDIR mkdir REQUIRED)
 find_program(CP cp REQUIRED)
 
-set(KERNEL_FLAGS
+set(C_FLAGS
     -ffreestanding
     -fno-stack-protector
     -fno-pic
@@ -23,9 +25,13 @@ set(LINKER_FLAGS
     -T ${CMAKE_SOURCE_DIR}/linker.ld
 )
 
+set(ASM_NASM_FLAGS
+    -f elf64
+)
+
 set(SOURCES
+    src/kernel.asm  
     src/kernel.c
-    src/kernel.asm
     libs/segTable.c
 )
 
@@ -35,7 +41,9 @@ target_include_directories(kernel PRIVATE
     include
 )
 
-target_compile_options(kernel PRIVATE ${KERNEL_FLAGS})
+target_include_directories(kernel PRIVATE include)
+target_compile_options(kernel PRIVATE $<$<COMPILE_LANGUAGE:C>:${C_FLAGS}>)
+target_compile_options(kernel PRIVATE $<$<COMPILE_LANGUAGE:ASM_NASM>:${ASM_NASM_FLAGS}>)
 target_link_options(kernel PRIVATE ${LINKER_FLAGS})
 
 add_custom_command(
