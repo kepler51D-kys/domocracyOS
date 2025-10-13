@@ -22,7 +22,6 @@ section .text
 start:
     mov esp, stack_top
     mov eax, 0x2BADB002
-    ; mov eax, 0x36D76289
     extern main
     call main
 	cli
