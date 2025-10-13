@@ -1,12 +1,11 @@
-int main() {
-    char* video_memory = (char*)0xB8000;
-
-    const char message[] = "kerneling time";
-    
-    for (int i = 0; message[i] != '\0'; i++) {
-        video_memory[i * 2] = message[i];
-        video_memory[i * 2 + 1] = 0x07;
+// kernel.c
+// #include <stdint.h>
+void kernel_main(unsigned int magic, void* mb_info) {
+    // Check multiboot magic
+    if (magic != 0x2BADB002) {
+        // Error handling
+        return;
     }
     
-    while(1);
+    // Your kernel code here
 }
