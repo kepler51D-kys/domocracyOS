@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd build
+qemu-system-x86_64 -cdrom domocracyos.iso
