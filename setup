@@ -1,2 +1,3 @@
 rm -rf build
+rm domocracyos.iso
 cmake -S . -B build
