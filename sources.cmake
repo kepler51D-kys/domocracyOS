@@ -7,5 +7,4 @@ set(C_SOURCES
 
 set(NASM_SOURCES
     src/boot.asm
-    src/v86.asm
 )
