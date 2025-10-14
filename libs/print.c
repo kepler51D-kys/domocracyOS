@@ -45,6 +45,13 @@ int printf(const char* message, ...) {
             else if (message[i] == 'p') {
                 // do nothing for now
             }
+            else if (message[i] == 's') {
+                char* str = va_arg(args,char*);
+                for (int i = 0; str[i] != '\0'; i++) {
+                    video_memory[charCount * 2] = str[i];
+                    video_memory[charCount++ * 2 + 1] = 0x07;
+                }
+            }
             else {
                 return -1;
             }
