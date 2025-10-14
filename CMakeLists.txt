@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.12)
 
-include(sources.cmake REQUIRED)
-include(cross_compiler.cmake REQUIRED)
+include("sources.cmake" REQUIRED)
+include("cross_compiler.cmake" REQUIRED)
 
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 

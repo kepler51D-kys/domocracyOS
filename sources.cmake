@@ -3,6 +3,9 @@ set(C_SOURCES
     libs/segTable.c
     libs/print.c
     libs/processManager.c
+    libs/io.c
+    libs/bga.c
+    libs/graphics.c
 )
 
 set(NASM_SOURCES
