@@ -4,8 +4,8 @@
 #include "vga.h"
 #include "bga.h"
 
-#define GRAPHICS_WIDTH 100
-#define GRAPHICS_HEIGHT 100
+#define GRAPHICS_WIDTH 1280
+#define GRAPHICS_HEIGHT 720
 
 uint8_t* graphics_init();
 
