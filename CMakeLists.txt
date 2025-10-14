@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.12)
 
+include(sources.cmake REQUIRED)
+include(cross_compiler.cmake REQUIRED)
+
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
-set(CMAKE_C_COMPILER <CROSS COMPILER>)
 
 project(DomocracyOS VERSION 1.0 LANGUAGES C ASM_NASM)
 
@@ -26,17 +28,6 @@ set(LINKER_FLAGS
     -static
 #    -lgcc
     -T ${CMAKE_SOURCE_DIR}/linker.ld
-)
-
-set(C_SOURCES
-    src/kernel.c
-    libs/segTable.c
-    libs/print.c
-    libs/processManager.c
-)
-
-set(NASM_SOURCES
-    src/boot.asm
 )
 
 set(NASM_OBJECTS)
