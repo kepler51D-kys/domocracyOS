@@ -1,6 +1,8 @@
 #include "print.h"
+#include "segTable.h"
 
 int main() {
-    printf("hello world: %s : goodbye","hello");
+    mem_init();
+    printf("pointer location : %d",malloc(50));
     while(1);
 }

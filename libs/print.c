@@ -5,7 +5,12 @@
 uint32_t charCount = 0;
 
 void printDec(int message) {
-    char* video_memory = (char*)0xB8000;
+    volatile char* video_memory = (volatile char*)0xB8000;
+    if (message == 0) {
+        video_memory[charCount*2] = '0';
+        video_memory[charCount++*2+1] = 0x07;
+        return;
+    }
     bool negative = message < 0;
     if (negative) {
         message = -message;
@@ -31,7 +36,7 @@ void printDec(int message) {
 int printf(const char* message, ...) {
     va_list args;
     va_start(args,message);
-    char* video_memory = (char*)0xB8000;
+    volatile char* video_memory = (volatile char*)0xB8000;
     bool getParam = false;
     for (int i = 0; message[i] != '\0'; i++) {
         if (getParam) {
