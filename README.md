@@ -1,4 +1,13 @@
-new repo because git is hard and i messed up
-- pilkey the kernel will be monolithic because im not a freak
+TODO:
+- set up timers
+- set up interrupts
+- add float handling to printf
+- make some kind of install script to obtain i686-elf-gcc and create a build file
+- process manager
+- round robin context switching
+- syscalls
 
-See [SETUP.md](SETUP.md)
+
+Notes:
+- See [SETUP.md](SETUP.md)
+- install i686-elf-gcc or similar

@@ -23,6 +23,7 @@ resb 16384 ; 16 KiB is reserved for stack
 stack_top:
 
 section .text
+global init_fpu
 
 gdtr DW 0 ; For limit storage
      DD 0 ; For base storage
@@ -46,6 +47,20 @@ reloadSegments:
    MOV   GS, AX
    MOV   SS, AX
    RET
+
+init_fpu:
+    fninit
+    mov eax, cr0
+    and eax, ~(1 << 2) ; Clear EM (emulation bit)
+    or eax, (1 << 1) ; Set MP (monitor coprocessor)
+    mov cr0, eax
+    
+    mov eax, cr4
+    or eax, (1 << 9) ; OSFXSR
+    or eax, (1 << 10) ; OSXMMEXCPT
+    mov cr4, eax
+    
+    ret
 
 start:
     mov esp, stack_top

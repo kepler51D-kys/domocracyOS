@@ -1,3 +1,4 @@
 rm -rf build
 rm domocracyos.iso
+touch CMakeLists.txt
 cmake -S . -B build

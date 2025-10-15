@@ -62,6 +62,9 @@ int printf(const char* message, ...) {
             }
             getParam = false;
         }
+        // else if (message[i] == '\n') {
+        //     charCount = charCount - charCount%160 + 160;
+        // }
         else if (message[i] == '%') {
             getParam = true;
         }
