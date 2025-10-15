@@ -13,6 +13,7 @@ void graphics_init() {
         return;
     }
     framebuffer = (uint8_t*)(BgaGetFramebufferAddress(device));
+    
     for (int i = 0; i < GRAPHICS_WIDTH*GRAPHICS_HEIGHT*3; i++) {
         buffers[0][i] = 0;
         buffers[1][i] = 0;
