@@ -6,6 +6,7 @@ int abs(int n) {
     return n > 0 ? n : -n;
 }
 
+/* Taken directly from the standard C library */
 float roundf(float x)
 {
   // int signbit;
