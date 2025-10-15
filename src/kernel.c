@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include "segTable.h"
 
-bool VGA = true;
+bool VGA = false;
 
 void main() {
     mem_init();
