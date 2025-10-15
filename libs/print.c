@@ -33,24 +33,24 @@ void printDec(int message) {
         }
     }
 }
-int printf(const char* message, ...) {
+int printf(const char* format, ...) {
     va_list args;
-    va_start(args,message);
+    va_start(args,format);
     volatile char* video_memory = (volatile char*)0xB8000;
     bool getParam = false;
-    for (int i = 0; message[i] != '\0'; i++) {
+    for (int i = 0; format[i] != '\0'; i++) {
         if (getParam) {
-            if (message[i] == 'c') {
+            if (format[i] == 'c') {
                 video_memory[charCount * 2] = va_arg(args,int);
                 video_memory[charCount++ * 2 + 1] = 0x07;
             }
-            else if (message[i] == 'd') {
+            else if (format[i] == 'd') {
                 printDec(va_arg(args,int));
             }
-            else if (message[i] == 'p') {
+            else if (format[i] == 'p') {
                 // do nothing for now
             }
-            else if (message[i] == 's') {
+            else if (format[i] == 's') {
                 char* str = va_arg(args,char*);
                 for (int i = 0; str[i] != '\0'; i++) {
                     video_memory[charCount * 2] = str[i];
@@ -65,11 +65,11 @@ int printf(const char* message, ...) {
         // else if (message[i] == '\n') {
         //     charCount = charCount - charCount%160 + 160;
         // }
-        else if (message[i] == '%') {
+        else if (format[i] == '%') {
             getParam = true;
         }
         else {
-            video_memory[charCount * 2] = message[i];
+            video_memory[charCount * 2] = format[i];
             video_memory[charCount++ * 2 + 1] = 0x07;
         }
     }

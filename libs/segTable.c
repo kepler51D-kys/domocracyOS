@@ -46,7 +46,7 @@ void* findGap(uint32_t size) {
     for (int i = 0 ; i < heapAmount; i++) {
         heap currentHeap = heaps[i];
         if (currentHeap.list.len == 1) {
-            if ((currentHeap.list.segments[0].start - currentHeap.start) >= size) {
+            if ((currentHeap.list.segments[0].start - currentHeap.start) >= (int)size) {
                 
             }
         }

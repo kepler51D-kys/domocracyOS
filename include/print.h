@@ -1,4 +1,4 @@
 #ifndef PRINT_H
 #define PRINT_H
-int printf(const char* message, ...);
+int printf(const char* format, ...);
 #endif

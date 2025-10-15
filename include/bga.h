@@ -1,3 +1,4 @@
+#include <stdint.h>
 #ifndef BGA_H
 #define BGA_H 1
 
