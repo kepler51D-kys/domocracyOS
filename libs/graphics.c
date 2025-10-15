@@ -44,10 +44,8 @@ void presentBuffer() {
     // memcpy(framebuffer, buffers[activeBuffer], GRAPHICS_WIDTH*GRAPHICS_HEIGHT*3);
 }
 void drawLine(uint32_t x1, uint32_t y1, uint32_t x2, uint32_t y2, colour col) {
-    int gradient = (x2-x1)/(y2-y1);
-    int intercept = y1 - gradient*x1;
-    uint32_t inc = x1;
-    uint32_t height = y1;
+    float gradient = (float)(y2-y1)/(x2-x1);
+    float intercept = y1 - gradient*x1;
     if (x2 < x1) {
         uint32_t tempx = x2;
         uint32_t tempy = y2;
@@ -56,18 +54,21 @@ void drawLine(uint32_t x1, uint32_t y1, uint32_t x2, uint32_t y2, colour col) {
         x1 = tempx;
         y1 = tempy;
     }
-    if (gradient > 0) {
-        for (;inc <= x2; inc++) {
-            for (; height <= (inc*gradient+intercept); height++) {
-                putpixel(height,inc,col);
+    uint32_t height = y1;
+    for (uint32_t inc = x1;inc <= x2; inc++) {
+        uint32_t desiredPoint = ((float)inc)*gradient+intercept;
+        if (height < desiredPoint) {
+            for (; height <= desiredPoint; height++) {
+                putpixel(inc, height, col);
             }
         }
-    }
-    else {
-        for (;inc <= x2; inc++) {
-            for (; height >= (inc*gradient+intercept); height--) {
-                putpixel(height,inc,col);
+        else if (height > desiredPoint) {
+            for (; height >= desiredPoint; height--) {
+                putpixel(inc, height, col);
             }
+        }
+        else {
+            putpixel(height, inc, col);
         }
     }
 }

@@ -12,7 +12,7 @@ void main() {
     }
     graphics_init();
 
-    for (int i = 300; i < 1000; i+=100) {
+    for (int i = 0; i < 400; i+=10) {
         clearScreen(COL(0,0,0));
         drawLine(0, 0, i, 300, COL(255,255,255));
         presentBuffer();
