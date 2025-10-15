@@ -44,7 +44,7 @@ void presentBuffer() {
     // memcpy(framebuffer, buffers[activeBuffer], GRAPHICS_WIDTH*GRAPHICS_HEIGHT*3);
 }
 void drawLine(uint32_t x1, uint32_t y1, uint32_t x2, uint32_t y2, colour col) {
-    float gradient = (float)(y2-y1)/(x2-x1);
+    float gradient = (float)(y2-y1)/(float)(x2-x1);
     float intercept = y1 - gradient*x1;
     if (x2 < x1) {
         uint32_t tempx = x2;
@@ -68,7 +68,7 @@ void drawLine(uint32_t x1, uint32_t y1, uint32_t x2, uint32_t y2, colour col) {
             }
         }
         else {
-            putpixel(height, inc, col);
+            putpixel(inc, height, col);
         }
     }
 }
