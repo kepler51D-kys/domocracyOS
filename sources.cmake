@@ -6,6 +6,7 @@ set(C_SOURCES
     libs/io.c
     libs/bga.c
     libs/graphics.c
+    libs/math.c
 )
 
 set(NASM_SOURCES

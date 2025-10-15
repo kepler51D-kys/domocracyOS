@@ -78,3 +78,40 @@ void drawLine(uint32_t x1, uint32_t y1, uint32_t x2, uint32_t y2, colour col) {
         }
     }
 }
+
+void drawLine_bresenham(int x1, int y1, int x2, int y2, colour col) {
+    int m_new = 2 * (y2 - y1);
+    int slope_error_new = m_new - (x2 - x1);
+    for(int x = x1, y = y1; x <= x2; x++) {
+        putpixel(x, y, col);
+        slope_error_new += m_new;
+
+        if(slope_error_new >= 0) {
+            y++;
+            slope_error_new -= 2* (x2 - x1);
+        }
+    }
+}
+
+void drawLine_DDA(int x1, int y1, int x2, int y2, colour col)
+{
+    // calculate dx & dy
+    int dx = x2 - x1;
+    int dy = y2 - y1;
+
+    // calculate steps required for generating pixels
+    int steps = abs(dx) > abs(dy) ? abs(dx) : abs(dy);
+
+    // calculate increment in x & y for each steps
+    float Xinc = dx / (float)steps;
+    float Yinc = dy / (float)steps;
+
+    // Put pixel for each step
+    float X = x1;
+    float Y = y1;
+    for (int i = 0; i <= steps; i++) {
+        putpixel((int)roundf(X), (int)roundf(Y), col);
+        X += Xinc; // increment in x at each step
+        Y += Yinc; // increment in y at each step
+    }
+}
