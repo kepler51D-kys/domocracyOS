@@ -7,6 +7,7 @@
 bool VGA = true;
 
 void main() {
+    mem_init();
     if (!VGA) {
         printf("Initializing VESA/VBE...");
         if(BgaIsAvailable()) {
@@ -24,7 +25,8 @@ void main() {
         }
     }
     else {
-        printf("pointer at : %d",malloc(5));
+        // malloc(5);
+        // printf("pointer at : %d",malloc(5));
     }
     while(1);
 }

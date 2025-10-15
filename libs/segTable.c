@@ -1,4 +1,5 @@
 #include "segTable.h"
+#include "print.h"
 #include <stdint.h>
 
 #define heapCount 64
@@ -14,10 +15,12 @@ segment segment_init(void* start, uint32_t length) {
 void heapInit(void* start, void* end) {
     heaps[heapAmount].start = start;
     heaps[heapAmount].end = end;
-    heaps[heapAmount].list.len = 1;
+    heaps[heapAmount].list.len = 2;
     heaps[heapAmount].list.maxLen = segCountPerHeap;
     heaps[heapAmount].list.segments[0].start = start;
     heaps[heapAmount].list.segments[0].length = segCountPerHeap;
+    heaps[heapAmount].list.segments[1].start = heaps[heapAmount].end;
+    heaps[heapAmount].list.segments[1].length = 0;
     heapAmount++;
 }
 void mem_init() {
@@ -45,18 +48,13 @@ int deleteSegment(int index, heap heapDelete) {
 void* findGap(uint32_t size) {
     for (int i = 0 ; i < heapAmount; i++) {
         heap currentHeap = heaps[i];
-        if (currentHeap.list.len == 1) {
-            if ((currentHeap.list.segments[0].start - currentHeap.start) >= (int)size) {
-                
-            }
-        }
         for (int j = 0; j < currentHeap.list.len-1; j++) {
             segment currentSeg = currentHeap.list.segments[j];
             segment nextSeg = currentHeap.list.segments[j+1];
             uint32_t gap = nextSeg.start - (currentSeg.start + currentSeg.length);
             if (gap >= size) {
                 segment newSeg;
-                newSeg.start = (void*)((uint32_t)(nextSeg.start + (uint32_t)(nextSeg.length + 7)) & (uint32_t)~7);
+                newSeg.start = (void*)((uint32_t)(currentSeg.start + (uint32_t)(currentSeg.length + 7)) & (uint32_t)~7);
                 newSeg.length = size;
                 insertSegment(j+1, currentHeap, newSeg);
                 return newSeg.start;

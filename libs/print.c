@@ -64,7 +64,8 @@ void printPointer(void* pointer) {
     }
     for (int i = 7; i >= 0; i--) {
         video_memory[charCount*2] = buffer[i];
-        video_memory[charCount++*2+1] = 0x07;
+        video_memory[charCount*2+1] = 0x07;
+        charCount++;
     }
 }
 
